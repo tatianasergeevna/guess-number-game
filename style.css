@@ -1,0 +1,97 @@
+body {
+    background: url('https://images.unsplash.com/photo-1668614831744-8f97f003a3e4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDM3MXxDRHd1d1hKQWJFd3x8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60');
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+.card {
+    cursor: default;
+    margin-right: 20px;
+}
+
+.card:hover {
+    -webkit-box-shadow: 0px 0px 30px 0px rgba(55, 0, 255);
+    -moz-box-shadow: 0px 0px 30px 0px rgba(55, 0, 255);
+    box-shadow: 0px 0px 30px 0px rgba(55, 0, 255);
+}
+
+.game-card {
+    height: 100vh;
+    font-family: 'Open Sans', monospace;
+}
+
+.card-header {
+    background-color: rgb(255, 246, 145);
+    font-size: 2rem;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.card-footer {
+    background-color: rgb(164, 181, 252);
+}
+
+.card-body {
+    background-color: rgba(254, 195, 195, 0.825);
+}
+
+.form-group {
+    margin-inline: auto;
+    padding: 10px;
+    width: auto;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+}
+
+label {
+    padding: 0px 10px 0px 0px;
+}
+
+#btnToGo {
+    color: rgb(104, 71, 252);
+    font-style: italic;
+}
+
+#btnToGo:hover {
+    color: rgb(252, 71, 71);
+    font-style: italic;
+}
+
+#btnPlay {
+    color: rgb(104, 71, 252);
+}
+
+#btnPlay:hover {
+    color: rgb(252, 71, 71);
+}
+
+#btnResume {
+    color: rgb(104, 71, 252);
+    text-decoration: wavy;
+}
+
+#btnResume:hover {
+    color: rgb(252, 71, 71);
+    text-decoration: wavy;
+}
+
+#btnRetry {
+    color: rgb(104, 71, 252);
+    text-decoration: wavy;
+}
+
+#btnRetry:hover {
+    color: rgb(252, 71, 71);
+}
+
+#btnEqual {
+    margin-right: 10px;
+    margin-left: 10px;
+}
