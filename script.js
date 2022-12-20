@@ -1,14 +1,10 @@
-//первоначальные данные с кнопкой alert
-//let minValue = parseInt(prompt('Минимальное знание числа для игры','0'));
-//let maxValue = parseInt(prompt('Максимальное знание числа для игры','100'));
-//alert(`Загадайте любое целое число от ${minValue} до ${maxValue}, а я его угадаю`);
 
 // 1 страница Игра Угадайка - кнопка "Начать игру!"
 document.getElementById('btnToGo').addEventListener('click', function () { // клик по кнопке "Начать игру!" => 2 страница Диапазон значений
     document.querySelector('.title-page').classList.add('hidden'); // игра Угадайка / скрывается
     document.querySelector('.value-range').classList.remove('hidden'); // диапазон значений / появляется
     document.querySelector('.valueRange').classList.remove('hidden'); // диапазон значений "Введите значение" / появляется
-    document.querySelector('.form-inline').classList.remove('hidden'); // форма Min-Max / появляется
+    document.querySelector('.form-inline').classList.remove('hidden'); // форма min-max / появляется
     document.querySelector('#btnToGo').classList.add('hidden'); // кнопка "Начать игру!" / скрывается
     document.querySelector('#btnResume').classList.remove('hidden'); // кнопка "Продолжить" / появляется
 })
@@ -18,7 +14,7 @@ document.getElementById('btnResume').addEventListener('click', function () { // 
     document.querySelector('.value-range').classList.add('hidden'); // диапазон значений / скрывается
     document.querySelector('.terms').classList.remove('hidden'); // условия / появляется
     document.querySelector('.valueRange').classList.add('hidden'); // диапазон значений "Текст" / скрывается
-    document.querySelector('.form-inline').classList.add('hidden'); // форма Min-Max / форма появляется / скрывается
+    document.querySelector('.form-inline').classList.add('hidden'); // форма min-max / форма появляется / скрывается
     document.querySelector('.guessNumber').classList.remove('hidden'); // "Загадайте любое целое число" / появляется
     document.querySelector('#btnResume').classList.add('hidden'); // кнопка "Продолжить" / скрывается
     document.querySelector('#btnPlay').classList.remove('hidden'); // кнопка "Играть" / появляется
@@ -29,7 +25,7 @@ document.getElementById('btnResume').addEventListener('click', function () { // 
     if (maxValue < minValue) {
         [maxValue, minValue] = [minValue, maxValue]; // min-max меняются местами, если max < min.
     }
-    if (Number.isNaN(maxValue) || Number.isNaN(minValue)) {
+    if (Number.isNaN(maxValue) || Number.isNaN(minValue)) { // min-max по умолчанию, если другие значения не выбраны
         minValue = 0;
         maxValue = 100;
     }
@@ -98,28 +94,27 @@ document.getElementById('btnPlay').addEventListener('click', function () { // к
         }
     }
 
-    orderNumberField.innerText = orderNumber; //вопрос №1
-    answerField.innerText = answerNumber >= 0 ? numberToText().length < 20 && answerNumber >= 0 ? `Вы загадали число ${numberToText()}?` : `Вы загадали число ${answerNumber}?` : numberToText().length < 20 ? `Вы загадали число минус ${numberToText()}?` : `Вы загадали число ${answerNumber}?`;
+    orderNumberField.innerText = orderNumber; // вопрос №1
+    answerField.innerText = (numberToText().length < 20 && answerNumber >= 0) ? `Вы загадали число ${numberToText()}?` : `Вы загадали число ${answerNumber}?`&& (numberToText().length < 20 && answerNumber < 0) ? `Вы загадали число минус ${numberToText()}?` : `Вы загадали число ${answerNumber}?`;
+    // вывод первого вопроса с предположительным результатом, написанным в текстовой или цифровой форме, в зависимости от текстовой длины числа и больше, меньше или равно это число нолю
 
     // кнопка "Меньше"
     document.getElementById('btnLess').addEventListener('click', function () { //кнопка "меньше"
         if (gameRun) {
-            console.log(maxValue, minValue)
             if (maxValue === minValue || minValue == answerNumber) {
-                const phraseRandom = Math.round(Math.random() * 3);
-                // const answerPhrase = (phraseRandom === 1) ?
+                const phraseRandom = Math.round(Math.random() * 3); // рандомный выбор фразы, если число не угадано
                 switch (phraseRandom) {
                     case 0:
-                        answerPhrase = `Вы загадали неправильное число!\n\u{1F928}`
+                        answerPhrase = `Вы загадали какое-то невероятное число?\n\u{1F928}`;
                         break;
                     case 1:     
-                        answerPhrase = `Вы точно загадали число?\n\u{1F92D}`
+                        answerPhrase = `Вы точно загадали число?\n\u{1F92D}`;
                         break;
                     case 2:
-                        answerPhrase = `Вы забыли число, которое загадали?\n\u{1F644}`
+                        answerPhrase = `Вы забыли число, которое загадали?\n\u{1F644}`;
                         break;
                     case 3:     
-                        answerPhrase = `Я сдаюсь!\n\u{1F47B}`
+                        answerPhrase = `Я сдаюсь!\n\u{1F47B}`;
                         break;       
                 }   
                 answerField.innerText = answerPhrase;
@@ -129,8 +124,26 @@ document.getElementById('btnPlay').addEventListener('click', function () { // к
                 answerNumber = Math.floor((minValue + maxValue) / 2);
                 orderNumber++;
                 orderNumberField.innerText = orderNumber;
-                const phraseRandom = Math.round(Math.random()); 
-                answerField.innerText = answerNumber >= 0 ? numberToText().length < 20 && answerNumber >= 0 ? `Вы загадали число ${numberToText()}?` : `Вы загадали число ${answerNumber}?` : numberToText().length < 20 ? `Вы загадали число минус ${numberToText()}?` : `Вы загадали число ${answerNumber}?`;
+                const phraseRandom = Math.round(Math.random() * 4); // рандомный выбор варианта вопроса
+                switch (phraseRandom) {
+                    case 0:
+                        answerPhrase = `Применим магический шар!\n\u{1F52E} Вы загадали `;
+                        break;
+                    case 1:
+                        answerPhrase = `Очень интересно...\n\u{1F575} Это число `;
+                        break;
+                    case 2:
+                        answerPhrase = `Сейчас точно угадаю!\n\u{1F4BB} Может это число `;
+                        break;
+                    case 3:
+                        answerPhrase = `\n\u{1F4AD}Возможно, ваше число `;
+                        break;
+                    case 4:
+                        answerPhrase = `Сим-салабим-ахалай-махалай!\n\u{1F9DA} Вы загадали `
+                        break;    
+                }
+                answerField.innerText = (numberToText().length < 20 && answerNumber >= 0) ? answerPhrase + `${numberToText()}?` : answerPhrase + `${answerNumber}?` && (numberToText().length < 20 && answerNumber < 0) ? answerPhrase + `минус ${numberToText()}?` : answerPhrase + `${answerNumber}?`;
+                // рандомный выбор вопроса с предположительным результатом, написанным в текстовой или цифровой форме, в зависимости от текстовой длины числа и больше, меньше или равно это число нолю
             }
         }      
     })
@@ -138,13 +151,11 @@ document.getElementById('btnPlay').addEventListener('click', function () { // к
     // кнопка "Больше"
     document.getElementById('btnOver').addEventListener('click', function () { //кнопка "больше"
         if (gameRun){
-            console.log(minValue, maxValue)
             if (minValue === maxValue) {
-                const phraseRandom = Math.round(Math.random() * 3);
-                // const answerPhrase = (phraseRandom === 1) ?
+                const phraseRandom = Math.round(Math.random() * 3); // рандомный выбор фразы, если число не угадано
                 switch (phraseRandom) {
                     case 0:
-                        answerPhrase = `Вы загадали неправильное число!\n\u{1F928}`;
+                        answerPhrase = `Вы загадали какое-то невероятное число?!\n\u{1F928}`;
                         break;
                     case 1:     
                         answerPhrase = `Вы точно загадали число?\n\u{1F92D}`;
@@ -163,8 +174,26 @@ document.getElementById('btnPlay').addEventListener('click', function () { // к
                 answerNumber = Math.floor((minValue + maxValue) / 2);
                 orderNumber++;
                 orderNumberField.innerText = orderNumber;
-                const phraseRandom = Math.round(Math.random());
-                answerField.innerText = answerNumber >= 0 ? numberToText().length < 20 && answerNumber >= 0 ? `Вы загадали число ${numberToText()}?` : `Вы загадали число ${answerNumber}?` : numberToText().length < 20 ? `Вы загадали число минус ${numberToText()}?` : `Вы загадали число ${answerNumber}?`;
+                const phraseRandom = Math.round(Math.random() * 4); // рандомный выбор варианта вопроса
+                switch (phraseRandom) {
+                    case 0:
+                        answerPhrase = `Применим магический шар!\n\u{1F52E} Вы загадали `
+                        break;
+                    case 1:
+                        answerPhrase = `Очень интересно...\n\u{1F575} Это число `
+                        break;
+                    case 2:
+                        answerPhrase = `Сейчас точно угадаю!\n\u{1F4BB} Может это число `
+                        break;
+                    case 3:
+                        answerPhrase = `\n\u{1F4AD}Возможно, ваше число `
+                        break;
+                    case 4:
+                        answerPhrase = `Сим-салабим-ахалай-махалай!\n\u{1F9DA} Вы загадали `
+                        break;
+                }
+                answerField.innerText = (numberToText().length < 20 && answerNumber >= 0) ? answerPhrase + `${numberToText()}?` : answerPhrase + `${answerNumber}?` && (numberToText().length < 20 && answerNumber < 0) ? answerPhrase + `минус ${numberToText()}?` : answerPhrase + `${answerNumber}?`;
+                // рандомный выбор вопроса с предположительным результатом, написанным в текстовой или цифровой форме, в зависимости от текстовой длины числа и больше, меньше или равно это число нолю
             }
         }
     })
@@ -172,19 +201,19 @@ document.getElementById('btnPlay').addEventListener('click', function () { // к
     // кнопка "Верно"
     document.getElementById('btnEqual').addEventListener('click', function () { //кнопка "Верно"
         if (gameRun) {
-            const phraseRandom = Math.round(Math.random() * 3);
+            const phraseRandom = Math.round(Math.random() * 3); // рандомный выбор фразы при клике на кнопку "Верно" при угадывании числа
             switch (phraseRandom) {
                 case 0:
-                    answerPhrase = `Я всегда угадываю!\n\u{1F973}`
+                    answerPhrase = `Этому я учился у лучших!\n\u{1F973}`
                     break;
                 case 1:
-                    answerPhrase = `Супер!!!\n\u{1F929}`
+                    answerPhrase = `Я супер сыщик!\n\u{1F929}`
                     break;
                 case 2:
-                    answerPhrase = `Я крут!\n\u{1F60E}`
+                    answerPhrase = `О, да! Я крут!\n\u{1F60E}`
                     break;
                 case 3:
-                    answerPhrase = `Я угадал!\n\u{1F920}`
+                    answerPhrase = `Ура! Я угадал!\n\u{1F920}`
                     break;
             }
             answerField.innerText = answerPhrase;
